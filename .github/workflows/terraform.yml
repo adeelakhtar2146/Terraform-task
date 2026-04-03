@@ -62,6 +62,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: |
+          cd environments/${{ env.ENVIRONMENT }}
           terraform init \
             -backend-config="bucket=adeel-eks-tf-state" \
             -backend-config="key=${{ env.ENVIRONMENT }}/terraform.tfstate" \
