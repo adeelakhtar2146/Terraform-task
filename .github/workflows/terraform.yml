@@ -41,7 +41,7 @@ jobs:
     defaults:
       run:
         # Ensure karein ke aapka terraform code isi folder mein hai
-        working-directory: ./environments/${{ env.ENVIRONMENT }}
+        working-directory: ./terraform
 
     steps:
       - name: Checkout Repository
