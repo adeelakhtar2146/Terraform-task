@@ -30,7 +30,8 @@ permissions:
 env:
   TF_VERSION: "1.7.0"
   # Agar manual trigger ho toh input use karein, warna default 'dev' (ya PR logic ke liye)
-  ENVIRONMENT: ${{ github.event.inputs.environment || 'prod' }} 
+  ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }} 
+  AWS_ACCOUNT_ID: "723626972500"
 
 jobs:
   terraform:
