@@ -1,0 +1,16 @@
+# Local terraform directories
+**/.terraform/*
+
+# .tfstate files (kyunke hum S3 use kar rahe hain)
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Variables files (agar sensitive data ho)
+*.tfvars
+*.tfvars.json
+
+# Terraform plan outputs
+tfplan
