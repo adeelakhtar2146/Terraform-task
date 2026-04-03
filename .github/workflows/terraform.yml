@@ -76,7 +76,11 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var-file="terraform.tfvars" -out=tfplan
+        run: |
+          # Pehle sahi environment folder mein jayein
+          cd environments/${{ env.ENVIRONMENT }}
+          # Phir wahan plan chalayein
+          terraform plan -var-file="terraform.tfvars" -out=tfplan
 
       - name: Terraform Apply
         # Apply tab chalega jab main branch par push ho ya manual 'apply' select kiya jaye
