@@ -19,11 +19,7 @@ resource "aws_eks_node_group" "nodes" {
     min_size     = var.min_size
   }
   instance_types = var.instance_types
-  depends_on = [
-    aws_iam_role_policy_attachment.eks_worker_node_policy,
-    aws_iam_role_policy_attachment.eks_cni_policy,
-    aws_iam_role_policy_attachment.ecr_read_only,
-  ]
+  
 }
 
 resource "aws_eks_access_entry" "adeel_user" {
