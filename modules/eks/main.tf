@@ -17,13 +17,13 @@ resource "aws_eks_node_group" "nodes" {
 }
 
 resource "aws_eks_access_entry" "adeel_user" {
-  cluster_name      = aws_eks_cluster.main.name
+  cluster_name      = aws_eks_cluster.this.name
   principal_arn     = "arn:aws:iam::723626972500:user/AdeelAkhtar" # Apna sahi ARN yahan likhein
   type              = "STANDARD"
 }
 
 resource "aws_eks_access_policy_association" "adeel_admin" {
-  cluster_name  = aws_eks_cluster.main.name
+  cluster_name  = aws_eks_cluster.this.name
   policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
   principal_arn = "arn:aws:iam::723626972500:user/AdeelAkhtar"
 
