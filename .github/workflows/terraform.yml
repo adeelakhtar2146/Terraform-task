@@ -60,13 +60,15 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform Init
+        id: init
         run: |
           terraform init \
             -backend-config="bucket=adeel-eks-tf-state" \
             -backend-config="key=${{ env.ENVIRONMENT }}/terraform.tfstate" \
             -backend-config="region=us-east-1" \
             -backend-config="dynamodb_table=terraform-locking" \
-            -backend-config="reconfigure"
+            -backend-config="encrypt=true" \
+            -reconfigure  # <--- Yahan pehle sirf ek dash (-) tha, usay flag bana dein
 
       - name: Terraform Validate
         id: validate
