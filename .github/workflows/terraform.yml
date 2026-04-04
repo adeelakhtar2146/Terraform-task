@@ -41,7 +41,7 @@ jobs:
     defaults:
       run:
         # Ensure karein ke aapka terraform code isi folder mein hai
-        working-directory: .
+        working-directory: ./environments/${{ env.ENVIRONMENT }}
 
     steps:
       - name: Checkout Repository
@@ -60,28 +60,20 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform Init
-        id: init
         run: |
-          cd environments/${{ env.ENVIRONMENT }}
           terraform init \
             -backend-config="bucket=adeel-eks-tf-state" \
             -backend-config="key=${{ env.ENVIRONMENT }}/terraform.tfstate" \
             -backend-config="region=us-east-1" \
             -backend-config="dynamodb_table=terraform-locking" \
-            -backend-config="encrypt=true" \
-            -reconfigure
+            -backend-config="reconfigure"
 
       - name: Terraform Validate
         id: validate
         run: terraform validate
 
       - name: Terraform Plan
-        id: plan
-        run: |
-          # Pehle sahi environment folder mein jayein
-          cd environments/${{ env.ENVIRONMENT }}
-          # Phir wahan plan chalayein
-          terraform plan -var-file="terraform.tfvars" -out=tfplan
+        run: terraform plan -var-file="terraform.tfvars" -out=tfplan
 
       - name: Terraform Apply
         # Apply tab chalega jab main branch par push ho ya manual 'apply' select kiya jaye
