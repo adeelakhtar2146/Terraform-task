@@ -74,8 +74,21 @@ jobs:
         id: validate
         run: terraform validate
 
+      - name: Debug Files
+        run: |
+          echo "Listing all files in the repository:"
+          ls -R
+
       - name: Terraform Plan
-        run: terraform plan -var-file="terraform.tfvars" -out=tfplan
+        id: plan
+        run: |
+          # Pehle check karein ke hum kahan hain aur file kahan hai
+          echo "Current location: $(pwd)"
+          
+          # Ab path ko poora manually target karein
+          terraform plan \
+            -var-file="${{ github.workspace }}/environments/${{ env.ENVIRONMENT }}/terraform.tfvars" \
+            -out=tfplan
 
       - name: Terraform Apply
         # Apply tab chalega jab main branch par push ho ya manual 'apply' select kiya jaye
